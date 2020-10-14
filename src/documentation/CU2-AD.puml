@@ -8,16 +8,16 @@
 --> ===B2===
 
 --> ===B1===
---> "Retrirer une Personne de la liste"
+--> "Retrirer une Personne\n de la liste"
 --> ===B2===
 
 --> ===B1===
---> "Modifier liste Personne de Client"
---> "Rechercher Personne dans liste de Client"
+--> "Modifier liste\n Personne de Client"
+--> "Rechercher Personne\n dans liste de Client"
 If "Personne Existe"
--->[Yes] "Ajouter une Personne existant dans la liste de Banque"
+-->[Yes] "Ajouter une\n Personne existant\n dans la liste de Banque"
 else
--->"Ajouter une Nouvelle Personne dans la liste de Client"
+-->"Ajouter une Nouvelle\n Personne dans\n la liste de Client"
 --> ===B2===
 
 --> (*)
