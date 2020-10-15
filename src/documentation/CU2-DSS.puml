@@ -9,34 +9,34 @@ U->I: Identifier Client
     I-[#red]>S: SM:CU1
 
 U->I: Consulter Liste Personne de Client
-    I-[#red]>S: SM: Obtenir Liste de Personne Client (id Client)
-    S-[#0000FF]->I: list<id Personne, Personne>
+    I-[#red]>S: SM: obtenirListedePersonneClient (idClient)
+    S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Modifier Liste Personne de Client
 
 U->I: Chercher Personne Par Nom/Prenom
-    I-[#red]>S: SM: Chercher Personne(nom, prenom)
-    S-[#0000FF]->I: list<id Personne, Personne>
+    I-[#red]>S: SM: chercherPersonne(nom, prenom)
+    S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Choisir une Personne
 
 U->I: Chercher Personne Par Nom/Prenom
-    I-[#red]>S: SM: Chercher Personne(nom, prenom)
+    I-[#red]>S: SM: chercherPersonne(nom, prenom)
     S-[#0000FF]->I: list<id Personne, Personne>
 
 U->I: Ajouter Personne dans la Liste de Client
-    I-[#red]>S: SM: AjouterPersonne(id Personne, id Client)
-    S-[#0000FF]->I: list<id Personne, Personne>
+    I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient)
+    S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Retirer Personne dans la Liste de Client
-    I-[#red]>S: SM: RetirerPersonne(id Personne, id Client)
-    S-[#0000FF]->I: list<id Personne, Personne>
+    I-[#red]>S: SM: retirerPersonne(idPersonne, idClient)
+    S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Consulter Personne
 
 U->I: Modifier Donnees Personne
-    I-[#red]>S: SM: ModifierPersonne(id Personne)
-    S-[#0000FF]->I: <id Personne, Personne>
+    I-[#red]>S: SM: modifierPersonne(idPersonne, idClient)
+    S-[#0000FF]->I: <idPersonne, Personne>
 
 
 
