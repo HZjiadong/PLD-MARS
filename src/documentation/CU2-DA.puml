@@ -1,0 +1,19 @@
+@startuml
+(*) --> "CU1 Identifier Client"
+--> "Consulter Liste Personne de Client"
+
+"Consulter Liste Personne de Client" --> "Consulter une Personne"
+"Consulter Liste Personne de Client" --> "Retrirer une Personne\n de la liste"
+"Consulter Liste Personne de Client" --> "Modifier liste\n Personne de Client"
+
+"Consulter une Personne"--> "Modifier Donnees Personne"
+
+
+"Modifier liste\n Personne de Client"--> "Rechercher Personne\n dans liste de Client"
+If "Personne Existe"
+-->[Yes] "Ajouter une\n Personne existant\n dans la liste de Banque"
+else
+-->"Ajouter une Nouvelle\n Personne dans\n la liste de Client"
+
+
+@enduml
