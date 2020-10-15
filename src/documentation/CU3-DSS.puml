@@ -1,0 +1,42 @@
+@startuml
+actor Utilisateur as U
+boundary IHM as I
+participant System as S
+
+autonumber
+
+U->I: Consulter liste contacts
+I-[#red]>S: obtenirListeContacts(idClient)
+S-[#0000FF]->I: list<idContact,Contact>
+
+alt
+    U->I: Créer contact
+    I-[#red]>S: CreerContact(idContact,Contact)
+    S-[#0000FF]->I: CRE
+else
+    U->I: Consulter onglet contact spontané/commercial
+    U->I: Selectionner un contact
+    U->I: Modifier un contact
+    I-[#red]>S: modifierContact(idContact,Contact)
+    S-[#0000FF]->I: CRE
+else
+    U->I: Consulter onglet entretien
+    U->I: Selectionner un entretien
+    alt
+        U->I: Consulter liste contrats
+        I-[#red]>S: obtenirListeContrats(idClient)
+        S-[#0000FF]->I: list<idContrat,Contrat>
+        U->I: Proposer un contrat
+        I-[#red]>S: proposerContrat(idContrat)
+    else
+        U->I: Consulter liste produits
+        I-[#red]>S: obtenirListeProduits(idClient)
+        S-[#0000FF]->I: list<idProduit,Produit>
+        U->I: Proposer un produit
+        I-[#red]>S: proposerProduit(idProduit)
+    else
+        U->I: Ajouter annotation
+        I-[#red]>S: ajouterAnnotation(idClient)
+    end
+end
+@enduml

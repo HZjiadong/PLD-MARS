@@ -1,0 +1,24 @@
+@startuml
+
+(*) --> "Consulter liste contacts"
+
+"Consulter liste contacts" -->"Créer contact"
+
+
+"Consulter liste contacts" -->"Consulter liste entretien"
+
+"Consulter liste entretien"-->"Selectionner entretien"
+"Selectionner entretien"-->"Consulter liste produits"
+-->"proposer un produit"
+"Selectionner entretien"-->"Ajouter annotation"
+
+"Selectionner entretien"-->"Consulter liste contrats"
+-->"proposer un contrat"
+
+
+"Consulter liste contacts" -->"Consulter liste contact spontané/commercial"
+-->"Selectionner un contact"
+"Selectionner un contact"-->"Modifier contact"
+
+
+@enduml
