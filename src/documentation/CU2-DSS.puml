@@ -40,7 +40,7 @@ else
 
     U->I: Modifier Donnees Personne
         I-[#red]>S: SM: modifierPersonne(idPersonne, idClient)
-        S-[#0000FF]->I: <idPersonne, Personne>
+        S-[#0000FF]->I: <idPersonne, Personne, id Agent?>
 end
 
 
