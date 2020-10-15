@@ -22,7 +22,7 @@ U->I: Choisir une Personne
 
 U->I: Chercher Personne Par Nom/Prenom
     I-[#red]>S: SM: chercherPersonne(nom, prenom)
-    S-[#0000FF]->I: list<id Personne, Personne>
+    S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Ajouter Personne dans la Liste de Client
     I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient)
