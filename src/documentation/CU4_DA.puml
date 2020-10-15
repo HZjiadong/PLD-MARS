@@ -1,5 +1,6 @@
 @startuml
-(*)  --> "Consulter la liste des contrats souscrits"
+(*)  --> "CU1 Sélectionner Client"
+--> "Consulter la liste des contrats souscrits"
 
 "Consulter la liste des contrats souscrits"-->  "Consulter les infos détaillées\n d'une souscription"
 "Consulter la liste des contrats souscrits"--> "Consulter la liste des contrats \n fournis par la banque "

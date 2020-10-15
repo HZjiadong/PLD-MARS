@@ -1,36 +1,37 @@
 @startuml
 actor Agent
-Agent -> IHM : Consulter la liste\n des contrats souscrits
-IHM -> Système : consulterListeSouscription(idClient)
+autonumber
+Agent -> IHM : Consulter la liste des contrats souscrits
+IHM -[#red]> Système : consulterListeSouscription(idClient)
 Système --> IHM : List<idSouscription, Souscription, idContrat, Contrat, idDomaine, Domaine>
 alt
-    Agent -> IHM : Consulter les infos détaillées\n d'une souscription
-    IHM -> Système : consulterDetailSouscription(idSouscription)
-    Système --> IHM : idSouscription, Souscription, idContrat, Contrat, List<idOption, Option>
+    Agent -> IHM : Consulter les infos détaillées d'une souscription
+    IHM -[#red]> Système : consulterDetailSouscription(idSouscription)
+    Système -[#0000FF]-> IHM : idSouscription, Souscription, idContrat, Contrat, List<idOption, Option>
     alt
     Agent -> IHM : Souscrire une option
-    IHM -> Système : souscrireOption(idSouscription, idOption)
-    Système --> IHM : CRE
+    IHM -[#red]> Système : souscrireOption(idSouscription, idOption)
+    Système -[#0000FF]-> IHM : CRE
     else
     Agent -> IHM : Résilier une option
-    IHM -> Système :resilierOption(idSouscription, idOption)
-    Système --> IHM : CRE
+    IHM -[#red]> Système :resilierOption(idSouscription, idOption)
+    Système -[#0000FF]-> IHM : CRE
     else
     Agent -> IHM : Mettre fin à la souscription
-    IHM -> Système : terminerSouscription(idSouscription)
-    Système --> IHM : CRE
+    IHM -[#red]> Système : terminerSouscription(idSouscription)
+    Système -[#0000FF]-> IHM : CRE
     end
 else
-    Agent -> IHM : Consulter la liste des contrats\n fournis par la banque
-    IHM -> Système : consulterContrats()
-    Système --> IHM : List<idDomaine, Domaine, List<idContrat, Contrat>>
+    Agent -> IHM : Consulter la liste des contrats fournis par la banque
+    IHM -[#red]> Système : consulterContrats()
+    Système -[#0000FF]-> IHM : List<idDomaine, Domaine, List<idContrat, Contrat>>
 
-    Agent -> IHM : Consulter les infos détaillées\n du contrat
-    IHM -> Système : consulterDetailContrat(idContrat)
-    Système --> IHM : idContrat, Contrat, List<idOption, Option>
+    Agent -> IHM : Consulter les infos détaillées du contrat
+    IHM -[#red]> Système : consulterDetailContrat(idContrat)
+    Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
     Agent -> IHM : Créer une nouvelle souscription
-    IHM -> Système : creerSouscription(idClient, idAgent, idContrat)
-    Système --> IHM : CRE
+    IHM -[#red]> Système : creerSouscription(idClient, idAgent, idContrat)
+    Système -[#0000FF]-> IHM : CRE
 end
 @enduml
