@@ -17,8 +17,8 @@ U->I: Consulter Liste Personne de Client
         S-[#red]>C: SOM: getPersonnesParClient(idClient)
         C-[#0000FF]->S: list<idPersonne>
         loop for each idPersonne
-        S-[#red]>C: SOM: getPersonnesParidPersonne(idPersonne)
-        C-[#0000FF]->S: Personne
+        S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
+        P-[#0000FF]->S: Personne
         end
 
     S-[#0000FF]->I: list<idPersonne, Personne>
