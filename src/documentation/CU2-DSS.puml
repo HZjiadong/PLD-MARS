@@ -14,6 +14,7 @@ U->I: Consulter Liste Personne de Client
     S-[#0000FF]->I: list<idPersonne, Personne>
 
 U->I: Modifier Liste Personne de Client
+U->I: Consulter Liste Personne de Client
 alt
     U->I: Ajouter une Personne dans ce Liste Client
 
@@ -32,15 +33,17 @@ alt
         S-[#0000FF]->I: list<idPersonne, Personne>
     end
 else
+    U->I: Choisir une Personne
     U->I: Retirer Personne dans la Liste de Client
         I-[#red]>S: SM: retirerPersonne(idPersonne, idClient)
         S-[#0000FF]->I: list<idPersonne, Personne>
 else
-    U->I: Consulter Personne
-
+    U->I: Consulter Personnene
+        I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
+        S-[#0000FF]->I: <idPersonne, Personne, id Adress, Adress>
     U->I: Modifier Donnees Personne
-        I-[#red]>S: SM: modifierPersonne(idPersonne, idClient)
-        S-[#0000FF]->I: <idPersonne, Personne, id Agent?>
+        I-[#red]>S: SM: modifierPersonne(idPersonne, id Client)
+        S-[#0000FF]->I: CRE
 end
 
 
