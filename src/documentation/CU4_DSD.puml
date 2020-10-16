@@ -9,7 +9,7 @@ Agent -> IHM : Consulter la liste des contrats souscrits
 IHM -[#red]> Système : SM 4.1 consulterListeSouscription(idClient)
 Système -> Client : SOM getSouscriptions(idClient)
 Client -[#0000FF]-> Système : List<idSouscription, Souscription, idContrat>
-loop chaque paire <idSouscription, idContrat>
+loop chaque idContrat
     Système -> Contrat : SOM getContratEtDomaine(idContrat)
     Contrat -[#0000FF]-> Système : idContrat, Contrat, idDomaine, Domaine
 end
