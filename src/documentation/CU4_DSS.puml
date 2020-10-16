@@ -28,7 +28,7 @@ alt
 else
     Contact -> IHM : Consulter la liste des contrats fournis par la banque
     IHM -[#red]> Système : SM 4.6 consulterContrats()
-    Système -[#0000FF]-> IHM : List<idDomaine, Domaine, List<idContrat, Contrat>>
+    Système -[#0000FF]-> IHM : List<idContrat, Contrat, List<idDomaine, Domaine>>
 
     Contact -> IHM : Consulter les infos détaillées du contrat
     IHM -[#red]> Système : SM 4.7 consulterDetailContrat(idContrat)

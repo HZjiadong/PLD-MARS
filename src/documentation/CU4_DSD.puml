@@ -1,0 +1,73 @@
+@startuml
+actor Agent
+boundary IHM
+participant Système
+participant Client
+participant Contrat
+autonumber
+Agent -> IHM : Consulter la liste des contrats souscrits
+IHM -[#red]> Système : SM 4.1 consulterListeSouscription(idClient)
+Système -> Client : SOM getSouscriptions(idClient)
+Client -[#0000FF]-> Système : List<idSouscription, Souscription, idContrat>
+loop chaque paire <idSouscription, idContrat>
+    Système -> Contrat : SOM getContratEtDomaine(idContrat)
+    Contrat -[#0000FF]-> Système : idContrat, Contrat, idDomaine, Domaine
+end
+Système --> IHM : List<idSouscription, Souscription, idContrat, Contrat, idDomaine, Domaine>
+alt
+    Agent -> IHM : Consulter les infos détaillées d'une souscription
+    IHM -[#red]> Système : SM 4.2 consulterDetailSouscription(idSouscription)
+    Système -> Client : SOM getListeOption(idSouscription)
+    Client -[#0000FF]-> Système : List<idOption>
+    loop chaque idOption
+        Système -> Contrat : SOM getOption(idOption)
+        Contrat -[#0000FF]-> Système :idOption, Option
+    end
+    Système -[#0000FF]-> IHM : idSouscription, List<idOption, Option>
+    alt
+    Agent -> IHM : Souscrire une option
+    IHM -[#red]> Système : SM 4.3 souscrireOption(idSouscription, idOption)
+    Système -> Client : SOM ajouterOption(idSouscription, idOption)
+    Client -[#0000FF]-> Système : CRE
+    Système -[#0000FF]-> IHM : CRE
+    IHM -> IHM : update tarif et liste d'option
+    else
+    Agent -> IHM : Résilier une option
+    IHM -[#red]> Système : SM 4.4 resilierOption(idSouscription, idOption)
+    Système -> Client : SOM enleverOption(idSouscription, idOption)
+    Client -[#0000FF]-> Système : CRE
+    Système -[#0000FF]-> IHM : CRE
+    IHM -> IHM : update tarif et liste d'option
+    else
+    Agent -> IHM : Mettre fin à la souscription
+    IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription)
+    Système -> Client : SOM enleverSouscription(idSouscription)
+    Client -[#0000FF]-> Système : CRE
+    Système -[#0000FF]-> IHM : CRE
+    IHM -> IHM : update liste de souscription
+    end
+else
+    Agent -> IHM : Consulter la liste des contrats fournis par la banque
+    IHM -[#red]> Système : SM 4.6 consulterContrats()
+    Système -> Contrat : SOM getListeContrat()
+    Contrat -[#0000FF]-> Système : List<idContrat, Contrat, List<idDomaine, Domaine>>
+    Système -[#0000FF]-> IHM : List<idContrat, Contrat, List<idDomaine, Domaine>>
+
+    Agent -> IHM : Consulter les infos détaillées du contrat
+    IHM -[#red]> Système : SM 4.7 consulterDetailContrat(idContrat)
+    Système -> Contrat : SOM getContratEtOption(idContrat)
+    Contrat -[#0000FF]-> Système : idContrat, Contrat, List<idOption, Option>
+    Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
+
+    Agent -> IHM : Créer une nouvelle souscription
+    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idAgent, idContrat, Souscription, list<idOption>)
+    Système -> Client : SOM ajouterSouscription(idClient, idAgent, idContrat, Souscription, list<idOption>)
+    Client -[#0000FF]-> Système : CRE
+    Système -[#0000FF]-> IHM : CRE
+    IHM -> IHM : update liste de souscription
+end
+
+
+
+
+@enduml
