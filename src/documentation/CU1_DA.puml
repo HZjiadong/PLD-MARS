@@ -2,14 +2,14 @@
 (*)  --> "Rechercher un Client"
 "Rechercher un Client" --> "Rechercher un\n Client par ID"
 "Rechercher un Client" --> "Rechercher un Client\n par dénomination"
-"Rechercher un Client" --> "Rechercher un Client\n par nom"
+"Rechercher un Client" --> "Rechercher un Client\n par nom du Personne"
 
 "Rechercher un\n Client par ID" --> "Selectionner Client"
 "Rechercher un Client\n par dénomination" --> "Selectionner Client"
-"Rechercher un Client\n par nom" --> "Selectionner Client"
+"Rechercher un Client\n par nom du Personne" --> "Selectionner Client"
 
-"Selectionner Client" --> "CU2: Consulter Liste\n Personne de Client"
-"Selectionner Client" --> "CU3: Consulter liste contacts"
-"Selectionner Client" --> "CU4: Consulter la liste des\n contrats souscrits"
-
+"Selectionner Client" --> "CU2: Consulter liste\n Personne de Client"
+"Selectionner Client" --> "CU3: Consulter Liste contacts"
+"Selectionner Client" --> "CU4: Consulter liste des\n contrats souscrits"
+"Selectionner Client" --> "Consulter liste des produits "
 @enduml

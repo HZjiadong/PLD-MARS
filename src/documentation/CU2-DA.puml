@@ -13,8 +13,8 @@
 If "Personne Existe"
 -->[Yes] "Ajouter une\n Personne existant\n dans la liste de Banque"
 else
--->[No] "Remplir les informations\n de la personne"
---> "Ajouter une Nouvelle\n Personne dans\n la liste de Client"
+-->[No] "Creation\n de la personne"
+--> "Ajouter une\n Personne existant\n dans la liste de Banque"
 
 
 @enduml

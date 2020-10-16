@@ -1,41 +1,41 @@
 @startuml
-actor Agent
+actor Contact
 boundary IHM
 autonumber
-Agent -> IHM : Consulter la liste des contrats souscrits
+Contact -> IHM : Consulter la liste des contrats souscrits
 IHM -[#red]> Système : SM 4.1 consulterListeSouscription(idClient)
 Système --> IHM : List<idSouscription, Souscription, idContrat, Contrat, idDomaine, Domaine>
 
 alt
-    Agent -> IHM : Consulter les infos détaillées d'une souscription
+    Contact -> IHM : Consulter les infos détaillées d'une souscription
     IHM -[#red]> Système : SM 4.2 consulterDetailSouscription(idSouscription)
     Système -[#0000FF]-> IHM : idSouscription, List<idOption, Option>
     alt
-    Agent -> IHM : Consulter les détails d'une option
+    Contact -> IHM : Consulter les détails d'une option
     else
-    Agent -> IHM : Souscrire une option
+    Contact -> IHM : Souscrire une option
     IHM -[#red]> Système : SM 4.3 souscrireOption(idSouscription, idOption)
     Système -[#0000FF]-> IHM : CRE
     else
-    Agent -> IHM : Résilier une option
+    Contact -> IHM : Résilier une option
     IHM -[#red]> Système : SM 4.4 resilierOption(idSouscription, idOption)
     Système -[#0000FF]-> IHM : CRE
     else
-    Agent -> IHM : Mettre fin à la souscription
+    Contact -> IHM : Mettre fin à la souscription
     IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription)
     Système -[#0000FF]-> IHM : CRE
     end
 else
-    Agent -> IHM : Consulter la liste des contrats fournis par la banque
+    Contact -> IHM : Consulter la liste des contrats fournis par la banque
     IHM -[#red]> Système : SM 4.6 consulterContrats()
-    Système -[#0000FF]-> IHM : List<idDomaine, Domaine, List<idContrat, Contrat>>
+    Système -[#0000FF]-> IHM : List<idContrat, Contrat, List<idDomaine, Domaine>>
 
-    Agent -> IHM : Consulter les infos détaillées du contrat
+    Contact -> IHM : Consulter les infos détaillées du contrat
     IHM -[#red]> Système : SM 4.7 consulterDetailContrat(idContrat)
     Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
-    Agent -> IHM : Créer une nouvelle souscription
-    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idAgent, idContrat, Souscription, list<idOption>)
+    Contact -> IHM : Créer une nouvelle souscription
+    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idContact, idContrat, Souscription, list<idOption>)
     Système -[#0000FF]-> IHM : CRE
 end
 @enduml
