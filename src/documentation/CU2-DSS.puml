@@ -6,7 +6,7 @@ participant System as S
 participant Client as C
 participant Personne as P
 participant Agent as A
-participant Adress as Ad
+
 '在personne和agent之间添加一个association 来储存最后一个modifier/ajouter 的agent的Id
 autonumber
 
@@ -56,14 +56,11 @@ else
             P-[#0000FF]->S: <Personne,idAgent,idAdress,Adress>
             S-[#red]>A: SOM: getAgentParidAgent(idAgent)
             A-[#0000FF]->S: Agent
-        S-[#0000FF]->I: <idPersonne, Personne, idAdress, Adress, Agent>
+        S-[#0000FF]->I: <Personne, Adress, Agent>
     U->I: Modifier Donnees Personne
         I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             P-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
 end
-
-
-
 @enduml
