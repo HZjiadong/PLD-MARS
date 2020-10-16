@@ -3,7 +3,11 @@
 actor Utilisateur as U
 boundary IHM as I
 participant System as S
+participant Client as C
+participant Personne as P
+participant Contact as Con
 
+'在personne和Contact之间添加一个association 来储存最后一个modifier/ajouter 的Contact的Id
 autonumber
 
 U->I: Identifier Client
@@ -11,41 +15,60 @@ U->I: Identifier Client
 
 U->I: Consulter Liste Personne de Client
     I-[#red]>S: SM: obtenirListedePersonneClient (idClient)
+        S-[#red]>C: SOM: getPersonnesParClient(idClient)
+        C-[#0000FF]->S: list<idPersonne>
+        loop for each idPersonne
+        S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
+        P-[#0000FF]->S: Personne
+        end
+
     S-[#0000FF]->I: list<idPersonne, Personne>
 
+
 U->I: Modifier Liste Personne de Client
+U->I: Consulter Liste Personne de Client
 alt
     U->I: Ajouter une Personne dans ce Liste Client
 
     U->I: Chercher Personne Par Nom/Prenom
         I-[#red]>S: SM: chercherPersonne(nom, prenom)
+            S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
+            P-[#0000FF]->S: Personne
         S-[#0000FF]->I: list<idPersonne, Personne>
     alt  0 résulat cherché
     U->I: Créer une nouvelle personne
-            I-[#red]>S: SM: créerNouvellePersonne(idPersonne, Personne, idClient)
-            S-[#0000FF]->I: CRE
+        I-[#red]>S: SM: créerNouvellePersonne(Personne, idClient, adress)
+                S-[#red]>P: SOM: CreatePersonne(Personne, idClient, adress)
+                P-[#0000FF]->S: CRE
+        S-[#0000FF]->I: CRE
     else
     U->I: Choisir une Personne
 
     U->I: Ajouter Personne dans la Liste de Client
-        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient)
+        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient, id Contact)
+            S-[#red]>P: SOM: AjouterPersonneParId(Id Personne, idClient, id Contact)
+            P-[#0000FF]->S: list<idPersonne, Personne>
         S-[#0000FF]->I: list<idPersonne, Personne>
     end
 else
+    U->I: Choisir une Personne
     U->I: Retirer Personne dans la Liste de Client
         I-[#red]>S: SM: retirerPersonne(idPersonne, idClient)
         S-[#0000FF]->I: list<idPersonne, Personne>
 else
     U->I: Consulter Personne
-
+        I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
+            S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
+            P-[#0000FF]->S: <Personne,id Contact,idAdress,Adress>
+            S-[#red]>Con: SOM: getContactParidContact(idContact)
+            Con-[#0000FF]->S: Contact
+        S-[#0000FF]->I: <Personne, Adress, Contact>
     U->I: Modifier Donnees Personne
-        I-[#red]>S: SM: modifierPersonne(idPersonne, idClient)
-        S-[#0000FF]->I: <idPersonne, Personne, id Agent?>
+        I-[#red]>S: SM: modifierPersonne(idPersonne, Personne, idContact)
+            S-[#red]>P: SOM: modifierPersonne(idPersonne, idClient, idContact)
+        I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idContact)
+            S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idContact)
+            P-[#0000FF]->S: CRE
+        S-[#0000FF]->I: CRE
 end
-
-
-
-
-
-
 @enduml

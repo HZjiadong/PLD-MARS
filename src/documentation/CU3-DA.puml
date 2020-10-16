@@ -1,22 +1,28 @@
 @startuml
 
-(*) --> "Consulter liste contacts"
+(*) --> "Consulter liste contacts de clients"
 
-"Consulter liste contacts" -->"Créer contact"
+"Consulter liste contacts de clients" -->"Créer contact"
 
 
-"Consulter liste contacts" -->"Consulter liste entretien"
+"Consulter liste contacts de clients" -->"Consulter onglet liste entretien"
 
-"Consulter liste entretien"-->"Selectionner entretien"
-"Selectionner entretien"-->"Consulter liste produits"
--->"proposer un produit"
-"Selectionner entretien"-->"Ajouter annotation"
+"Consulter onglet liste entretien"-->"Selectionner entretien"
+
+"Selectionner entretien"-->"Consulter liste offres"
+"Consulter liste offres"-->"Consulter détaille d'une offre"
+-->"Proposer un produit & Ajouter une annotation"
+
+"Selectionner entretien"-->"Modifier entretien"
 
 "Selectionner entretien"-->"Consulter liste contrats"
--->"proposer un contrat"
+-->"Consulter détaille d'un contrat"
+-->"Proposer une option & Ajouter une annotation"
 
+"Proposer une option & Ajouter une annotation"-->"Changer état de l'entretient et le clore"
+"Proposer un produit & Ajouter une annotation"-->"Changer état de l'entretient et le clore"
 
-"Consulter liste contacts" -->"Consulter liste contact spontané/commercial"
+"Consulter liste contacts de clients" -->"Consulter onglet liste contact spontané/commercial"
 -->"Selectionner un contact"
 "Selectionner un contact"-->"Modifier contact"
 
