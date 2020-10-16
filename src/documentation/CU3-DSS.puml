@@ -26,17 +26,30 @@ else
         U->I: Consulter liste contrats
         I-[#red]>S: obtenirListeContrats(idClient)
         S-[#0000FF]->I: list<idContrat,Contrat>
-        U->I: Proposer un contrat
-        I-[#red]>S: proposerContrat(idContrat)
+        U->I: Consulter détaille d'un contrat
+        I-[#red]>S: obtenirDetailleContrat(idOption,Option)
+        S-[#0000FF]->I: idContrat,Contrat
+        U->I: Proposer un option & Ajouter une annotation
+        I-[#red]>S: ajouterAnnotation(idContrat,idContrat)
+        S-[#0000FF]->I: CRE
     else
-        U->I: Consulter liste produits
-        I-[#red]>S: obtenirListeProduits(idClient)
-        S-[#0000FF]->I: list<idProduit,Produit>
-        U->I: Proposer un produit
-        I-[#red]>S: proposerProduit(idProduit)
+        U->I: Consulter liste offres
+        I-[#red]>S: obtenirListeOffres(idClient)
+        S-[#0000FF]->I: list<idOffre,Offre>
+        U->I: Consulter détaille d'une offre
+        I-[#red]>S: obtenirDetailleOffre(list<idProduit,Produit>)
+        U->I: Proposer un Offre & Ajouter une annotation
+        I-[#red]>S: ajouterAnnotation(idContrat,String)
+        S-[#0000FF]->I: CRE
     else
-        U->I: Ajouter annotation
-        I-[#red]>S: ajouterAnnotation(idClient)
+        U->I: Modifier entretien
+        I-[#red]>S: modifierContact(idContact,Contact)
+        S-[#0000FF]->I: CRE
     end
+    U->I: Changer état de l'entretient et le clore
+    I-[#red]>S: ajouterAnnotation(idContrat,String)
+    S-[#0000FF]->I: CRE
+    I-[#red]>S: modifierContact(idContact,Contact)
+    S-[#0000FF]->I: CRE
 end
 @enduml
