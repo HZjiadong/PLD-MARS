@@ -53,14 +53,13 @@ else
     U->I: Consulter Personne
         I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
             S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
-            P-[#0000FF]->S: <Personne,idAgent>
+            P-[#0000FF]->S: <Personne,idAgent,idAdress,Adress>
             S-[#red]>A: SOM: getAgentParidAgent(idAgent)
             A-[#0000FF]->S: Agent
-
-        S-[#0000FF]->I: <idPersonne,Personne,idAdress,Adress>
+        S-[#0000FF]->I: <idPersonne, Personne, idAdress, Adress, Agent>
     U->I: Modifier Donnees Personne
-        I-[#red]>S: SM: modifierPersonne(idPersonne, idClient, idAgent)
-            S-[#red]>P: SOM: modifierPersonne(idPersonne, idClient, idAgent)
+        I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
+            S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             P-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
 end
