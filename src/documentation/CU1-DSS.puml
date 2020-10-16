@@ -1,0 +1,28 @@
+@startuml
+actor Utilisateur as U
+boundary IHM as I
+participant System as S
+
+autonumber
+
+U->I: Rechercher un Client
+
+U->I: Rechercher un Client par ID
+    I-[#red]>S: SM: RechercherClientID (idClient)
+    S-[#0000FF]->I: idClient,Client
+
+U->I: Rechercher un Client par Denomination
+    I-[#red]>S: SM: RechercherClientDenomination (Denomination)
+    S-[#0000FF]->I: idClient,Client
+
+U->I: Rechercher un Client par Nom Prenom
+    I-[#red]>S: SM: RechercherClientNomPrenom (Nom, Prenom)
+    S-[#0000FF]->I: idClient,Client
+
+U->I: Selection un Client
+
+U->I: CU2:Consulter la Liste Personne de Client
+U->I: CU3:Consulter la Liste de Contacts
+U->I: CU2:Consulter la Liste des Contrats Souscrits
+
+@enduml
