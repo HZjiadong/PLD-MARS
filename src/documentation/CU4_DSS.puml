@@ -9,7 +9,7 @@ Système --> IHM : List<idSouscription, Souscription, idContrat, Contrat, idDoma
 alt
     Agent -> IHM : Consulter les infos détaillées d'une souscription
     IHM -[#red]> Système : SM 4.2 consulterDetailSouscription(idSouscription)
-    Système -[#0000FF]-> IHM : idSouscription, Souscription, idContrat, Contrat, List<idOption, Option>
+    Système -[#0000FF]-> IHM : idSouscription, List<idOption, Option>
     alt
     Agent -> IHM : Consulter les détails d'une option
     else
