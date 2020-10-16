@@ -32,16 +32,22 @@ alt
 
     U->I: Chercher Personne Par Nom/Prenom
         I-[#red]>S: SM: chercherPersonne(nom, prenom)
+            S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
+            P-[#0000FF]->S: Personne
         S-[#0000FF]->I: list<idPersonne, Personne>
     alt  0 résulat cherché
     U->I: Créer une nouvelle personne
-            I-[#red]>S: SM: créerNouvellePersonne(idPersonne, Personne, idClient)
+            I-[#red]>S: SM: créerNouvellePersonne(idPersonne, Personne, idClient, id Agent)
+                S-[#red]>Ad: SOM: CreateAdresse(Adress)
+                Ad-[#0000FF]->S: Id Adress, Adress
+                S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
+                P-[#0000FF]->S: idPersonne, Personne
             S-[#0000FF]->I: CRE
     else
     U->I: Choisir une Personne
 
     U->I: Ajouter Personne dans la Liste de Client
-        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient)
+        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient, id Agent)
         S-[#0000FF]->I: list<idPersonne, Personne>
     end
 else
@@ -59,7 +65,7 @@ else
 
         S-[#0000FF]->I: <idPersonne,Personne,idAdress,Adress>
     U->I: Modifier Donnees Personne
-        I-[#red]>S: SM: modifierPersonne(idPersonne, idClient, idAgent)
+        I-[#red]>S: SM: modifierPersonne(idPersonne, Personne, idAgent)
             S-[#red]>P: SOM: modifierPersonne(idPersonne, idClient, idAgent)
             P-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
