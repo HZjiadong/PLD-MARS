@@ -7,9 +7,9 @@
 
 "Consulter les infos détaillées\n d'une souscription" --> "Souscrire une option"
 "Consulter les infos détaillées\n d'une souscription" --> "Résilier une option"
-"Consulter les infos détaillées\n d'une souscription" --> "Mettre fin à la souscription"
+"Consulter les infos détaillées\n d'une souscription" --> "Résilier la souscription"
 
 "Consulter la liste des contrats \n fournis par la banque " --> "Consulter les infos détaillées\n du contrat"
-"Consulter les infos détaillées\n du contrat" --> "Créer une nouvelle souscription"
+"Consulter les infos détaillées\n du contrat" --> "Créer une nouvelle souscription \n et ajouter des options"
 
 @enduml

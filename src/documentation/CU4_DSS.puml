@@ -1,37 +1,38 @@
 @startuml
 actor Agent
+boundary IHM
 autonumber
 Agent -> IHM : Consulter la liste des contrats souscrits
-IHM -[#red]> Système : consulterListeSouscription(idClient)
+IHM -[#red]> Système : SM 4.1 consulterListeSouscription(idClient)
 Système --> IHM : List<idSouscription, Souscription, idContrat, Contrat, idDomaine, Domaine>
 alt
     Agent -> IHM : Consulter les infos détaillées d'une souscription
-    IHM -[#red]> Système : consulterDetailSouscription(idSouscription)
+    IHM -[#red]> Système : SM 4.2 consulterDetailSouscription(idSouscription)
     Système -[#0000FF]-> IHM : idSouscription, Souscription, idContrat, Contrat, List<idOption, Option>
     alt
     Agent -> IHM : Souscrire une option
-    IHM -[#red]> Système : souscrireOption(idSouscription, idOption)
+    IHM -[#red]> Système : SM 4.3 souscrireOption(idSouscription, idOption)
     Système -[#0000FF]-> IHM : CRE
     else
     Agent -> IHM : Résilier une option
-    IHM -[#red]> Système :resilierOption(idSouscription, idOption)
+    IHM -[#red]> Système : SM 4.4 resilierOption(idSouscription, idOption)
     Système -[#0000FF]-> IHM : CRE
     else
     Agent -> IHM : Mettre fin à la souscription
-    IHM -[#red]> Système : terminerSouscription(idSouscription)
+    IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription)
     Système -[#0000FF]-> IHM : CRE
     end
 else
     Agent -> IHM : Consulter la liste des contrats fournis par la banque
-    IHM -[#red]> Système : consulterContrats()
+    IHM -[#red]> Système : SM 4.6 consulterContrats()
     Système -[#0000FF]-> IHM : List<idDomaine, Domaine, List<idContrat, Contrat>>
 
     Agent -> IHM : Consulter les infos détaillées du contrat
-    IHM -[#red]> Système : consulterDetailContrat(idContrat)
+    IHM -[#red]> Système : SM 4.7 consulterDetailContrat(idContrat)
     Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
     Agent -> IHM : Créer une nouvelle souscription
-    IHM -[#red]> Système : creerSouscription(idClient, idAgent, idContrat)
+    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idAgent, idContrat, Souscription, list<idOption>)
     Système -[#0000FF]-> IHM : CRE
 end
 @enduml
