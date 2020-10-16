@@ -3,6 +3,9 @@
 actor Utilisateur as U
 boundary IHM as I
 participant System as S
+participant Client as C
+participant Personne as P
+participant Agent as A
 
 autonumber
 
@@ -11,7 +14,15 @@ U->I: Identifier Client
 
 U->I: Consulter Liste Personne de Client
     I-[#red]>S: SM: obtenirListedePersonneClient (idClient)
+        S-[#red]>C: SOM: getPersonnesParClient(idClient)
+        C-[#0000FF]->S: list<idPersonne>
+        loop for each idPersonne
+        S-[#red]>C: SOM: getPersonnesParidPersonne(idPersonne)
+        C-[#0000FF]->S: Personne
+        end
+
     S-[#0000FF]->I: list<idPersonne, Personne>
+
 
 U->I: Modifier Liste Personne de Client
 U->I: Consulter Liste Personne de Client
