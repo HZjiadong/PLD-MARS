@@ -5,9 +5,9 @@ boundary IHM as I
 participant System as S
 participant Client as C
 participant Personne as P
-participant Agent as A
+participant Contact as Con
 
-'在personne和agent之间添加一个association 来储存最后一个modifier/ajouter 的agent的Id
+'在personne和Contact之间添加一个association 来储存最后一个modifier/ajouter 的Contact的Id
 autonumber
 
 U->I: Identifier Client
@@ -37,17 +37,17 @@ alt
         S-[#0000FF]->I: list<idPersonne, Personne>
     alt  0 résulat cherché
     U->I: Créer une nouvelle personne
-            I-[#red]>S: SM: créerNouvellePersonne(idPersonne, Personne, idClient, id Agent)
-                S-[#red]>Ad: SOM: CreateAdresse(Adress)
-                Ad-[#0000FF]->S: Id Adress, Adress
-                S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
-                P-[#0000FF]->S: idPersonne, Personne
-            S-[#0000FF]->I: CRE
+        I-[#red]>S: SM: créerNouvellePersonne(Personne, idClient, adress)
+                S-[#red]>P: SOM: CreatePersonne(Personne, idClient, adress)
+                P-[#0000FF]->S: CRE
+        S-[#0000FF]->I: CRE
     else
     U->I: Choisir une Personne
 
     U->I: Ajouter Personne dans la Liste de Client
-        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient, id Agent)
+        I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient, id Contact)
+            S-[#red]>P: SOM: AjouterPersonneParId(Id Personne, idClient, id Contact)
+            P-[#0000FF]->S: list<idPersonne, Personne>
         S-[#0000FF]->I: list<idPersonne, Personne>
     end
 else
@@ -59,18 +59,15 @@ else
     U->I: Consulter Personne
         I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
             S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
-            P-[#0000FF]->S: <Personne,idAgent,idAdress,Adress>
-            S-[#red]>A: SOM: getAgentParidAgent(idAgent)
-            A-[#0000FF]->S: Agent
-        S-[#0000FF]->I: <Personne, Adress, Agent>
+            P-[#0000FF]->S: <Personne,id Contact,idAdress,Adress>
+            S-[#red]>Con: SOM: getContactParidContact(idContact)
+            Con-[#0000FF]->S: Contact
+        S-[#0000FF]->I: <Personne, Adress, Contact>
     U->I: Modifier Donnees Personne
-<<<<<<< HEAD
-        I-[#red]>S: SM: modifierPersonne(idPersonne, Personne, idAgent)
-            S-[#red]>P: SOM: modifierPersonne(idPersonne, idClient, idAgent)
-=======
-        I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
-            S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
->>>>>>> 583795ba21b0cd5abaef6df623513f17a8d2212d
+        I-[#red]>S: SM: modifierPersonne(idPersonne, Personne, idContact)
+            S-[#red]>P: SOM: modifierPersonne(idPersonne, idClient, idContact)
+        I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idContact)
+            S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idContact)
             P-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
 end
