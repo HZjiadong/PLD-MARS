@@ -1,60 +1,95 @@
 @startuml
 actor Utilisateur as U
 boundary IHM as I
-participant System as S
+participant Systeme as S
+participant Contact as C
+participant Contrat as CON
+participant Offre as O
 
 autonumber
+
 U->I: Identifier Client
 I-[#red]>S: SM:CU1
 S-[#0000FF]->I: idClient,Client
 
 U->I: Consulter liste contacts de client
 I-[#red]>S: SM 3.1 consulterListeContacts(idClient)
-S-[#0000FF]->I: list<idContact,Contact>
+S-[#red]>C: SOM 3.1 getContactClient(idClient)
+C-[#0000FF]->S: List<Contact>
 
 alt
     U->I: Créer contact
-    I-[#red]>S: SM 3.2 CreerContact(idCLient,idAgent,Contact)
+    I-[#red]>S: SM 3.2 creerContact(idCLient,idAgent,Contact)
+    S-[#red]>C: SOM 3.2 ajouterContact(idCLient,idAgent,Contact)
+    C-[#0000FF]->S: CRE
     S-[#0000FF]->I: CRE
 else
     U->I: Consulter onglet contact spontané/commercial
     U->I: Selectionner un contact
     U->I: Modifier un contact
     I-[#red]>S: SM 3.3 modifierContact(idContact,idContrat)
+    S-[#red]>C: SOM 3.3 modifierContact(idContact,idContrat)
+    C-[#0000FF]->S: CRE
     S-[#0000FF]->I: CRE
 else
     U->I: Consulter onglet entretien
     U->I: Selectionner un entretien
     alt
         U->I: Consulter liste contrats
-        I-[#red]>S: SM 3.4 consulterListeContrat()
-        S-[#0000FF]->I: Liste<idDomaine, Domaine, Liste<idContrat, Contrat>>
+        I--[#red]>S: SM 3.4 consulterListeContrat()
+        S-[#red]>CON: SOM 3.4 getListeContrat(idContrat)
+        CON-[#0000FF]->S: Liste<idContrat, Contrat>
+        S-[#0000FF]->I: Liste<idDomaine, Domaine, List<idContrat, Contrat>>
+
+
+
         U->I: Consulter détaille d'un contrat
         I-[#red]>S: SM 3.5 consulterDetaileContrat(idContrat)
-        S-[#0000FF]->I: idContrat, Contrat, Liste<idOption, Option>
+        S -[#red]> CON : SOM 3.5 getContratEtOption(idContrat)
+        CON -[#0000FF]-> S : idContrat, Contrat, Liste<idOption, Option>
+        S -[#0000FF]-> I: idContrat, Contrat, Liste<idOption, Option>
+
         U->I: Proposer un option de contrat & Ajouter une annotation
         I-[#red]>S: SM 3.6 proposerContrat(idContact,PropositionContrat,idContrat)
+        S-[#red]>CON: SOM 3.6 formulerPropositionContrat(idContact,PropositionContrat,idContrat)
+        CON-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
     else
         U->I: Consulter liste offres
         I-[#red]>S: SM 3.7 consulterListeOffres()
+        S-[#red]>O: SOM 3.7 getListeOffre()
+        O-[#0000FF]->S: list<idOffre,Offre>
         S-[#0000FF]->I: list<idOffre,Offre>
+
         U->I: Consulter détaille d'une offre
         I-[#red]>S: SM 3.8 consulterDetailOffre(idOffre)
+        S -[#red]> O : SOM 3.8 getDetailleOffre(idOffre)
+        O -[#0000FF]-> S : idOffre,Offre,liste<idProduit,Produit>
         S-[#0000FF]->I: idOffre,Offre,list<idProduit,Produit>
+
         U->I: Proposer un produit d'offre & Ajouter une annotation
         I-[#red]>S: SM 3.9 proposerOffre(idContact,PropositionOffre,idOffre)
+        S-[#red]>O: SOM 3.9 formulerPropositionOffre(idContact,PropositionOffre,idOffre)
+        O-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
     else
         U->I: Modifier entretien
         I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
+        S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
+        C-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
     end
     U->I: Ajouter annotation
     I-[#red]>S: SM 3.10 ajouterAnnotation(idContact,Annotation)
+    S-[#red]>C: SOM 3.10: ajouterAnnotation(idContact, Annotation)
+    C-[#0000FF]->S:CRE
     S-[#0000FF]->I: CRE
+
     U->I: Clore l'entretien
     I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
+    S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
+    C-[#0000FF]->S: CRE
     S-[#0000FF]->I: CRE
 end
+
 @enduml
