@@ -10,7 +10,7 @@ S-[#0000FF]->I: idClient,Client
 
 U->I: Consulter liste contacts de client
 I-[#red]>S: SM 3.1 consulterListeContacts(idClient)
-S-[#0000FF]->I: list<idContact,Contact>
+S-[#0000FF]->I: List<idContact,Contact>
 
 alt
     U->I: Créer contact
@@ -28,20 +28,20 @@ else
     alt
         U->I: Consulter liste contrats
         I-[#red]>S: SM 3.4 consulterListeContrat()
-        S-[#0000FF]->I: Liste<idDomaine, Domaine, Liste<idContrat, Contrat>>
-        U->I: Consulter détaille d'un contrat
-        I-[#red]>S: SM 3.5 consulterDetaileContrat(idContrat)
-        S-[#0000FF]->I: idContrat, Contrat, Liste<idOption, Option>
+        S-[#0000FF]->I: List<idDomaine, Domaine, Liste<idContrat, Contrat>>
+        U->I: Consulter détail d'un contrat
+        I-[#red]>S: SM 3.5 consulterDetailContrat(idContrat)
+        S-[#0000FF]->I: idContrat, Contrat, List<idOption, Option>
         U->I: Proposer un option de contrat & Ajouter une annotation
         I-[#red]>S: SM 3.6 proposerContrat(idContact,PropositionContrat,idContrat)
         S-[#0000FF]->I: CRE
     else
         U->I: Consulter liste offres
         I-[#red]>S: SM 3.7 consulterListeOffres()
-        S-[#0000FF]->I: list<idOffre,Offre>
-        U->I: Consulter détaille d'une offre
+        S-[#0000FF]->I: List<idOffre,Offre>
+        U->I: Consulter détail d'une offre
         I-[#red]>S: SM 3.8 consulterDetailOffre(idOffre)
-        S-[#0000FF]->I: idOffre,Offre,list<idProduit,Produit>
+        S-[#0000FF]->I: idOffre,Offre,List<idProduit,Produit>
         U->I: Proposer un produit d'offre & Ajouter une annotation
         I-[#red]>S: SM 3.9 proposerOffre(idContact,PropositionOffre,idOffre)
         S-[#0000FF]->I: CRE
