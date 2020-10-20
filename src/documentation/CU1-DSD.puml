@@ -37,7 +37,7 @@ U->I: Selection un Client
 
 U->I: CU2:Consulter la Liste Personne de Client
 U->I: CU3:Consulter la Liste de Contacts
-U->I: CU2:Consulter la Liste des Contrats Souscrits
+U->I: CU4:Consulter la Liste des Contrats Souscrits
 
 
 @enduml
