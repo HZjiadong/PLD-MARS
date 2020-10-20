@@ -15,7 +15,8 @@ S-[#0000FF]->I: idClient,Client
 U->I: Consulter liste contacts de client
 I-[#red]>S: SM 3.1 consulterListeContacts(idClient)
 S-[#red]>C: SOM 3.1 getContactClient(idClient)
-C-[#0000FF]->S: List<Contact>
+C-[#0000FF]->S: List<idContact, Contact>
+S-[#0000FF]->I: List<idContact, Contact>
 
 alt
     U->I: Créer contact
@@ -27,8 +28,8 @@ else
     U->I: Consulter onglet contact spontané/commercial
     U->I: Selectionner un contact
     U->I: Modifier un contact
-    I-[#red]>S: SM 3.3 modifierContact(idContact,idContrat)
-    S-[#red]>C: SOM 3.3 modifierContact(idContact,idContrat)
+    I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
+    S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
     C-[#0000FF]->S: CRE
     S-[#0000FF]->I: CRE
 else
@@ -38,16 +39,16 @@ else
         U->I: Consulter liste contrats
         I--[#red]>S: SM 3.4 consulterListeContrat()
         S-[#red]>CON: SOM 3.4 getListeContrat(idContrat)
-        CON-[#0000FF]->S: Liste<idContrat, Contrat>
-        S-[#0000FF]->I: Liste<idDomaine, Domaine, List<idContrat, Contrat>>
+        CON-[#0000FF]->S: List<idContrat, Contrat>
+        S-[#0000FF]->I: List<idDomaine, Domaine, List<idContrat, Contrat>>
 
 
 
-        U->I: Consulter détaille d'un contrat
-        I-[#red]>S: SM 3.5 consulterDetaileContrat(idContrat)
+        U->I: Consulter détail d'un contrat
+        I-[#red]>S: SM 3.5 consulterDetailContrat(idContrat)
         S -[#red]> CON : SOM 3.5 getContratEtOption(idContrat)
-        CON -[#0000FF]-> S : idContrat, Contrat, Liste<idOption, Option>
-        S -[#0000FF]-> I: idContrat, Contrat, Liste<idOption, Option>
+        CON -[#0000FF]-> S : idContrat, Contrat, List<idOption, Option>
+        S -[#0000FF]-> I: idContrat, Contrat, List<idOption, Option>
 
         U->I: Proposer un option de contrat & Ajouter une annotation
         I-[#red]>S: SM 3.6 proposerContrat(idContact,PropositionContrat,idContrat)
@@ -58,13 +59,13 @@ else
         U->I: Consulter liste offres
         I-[#red]>S: SM 3.7 consulterListeOffres()
         S-[#red]>O: SOM 3.7 getListeOffre()
-        O-[#0000FF]->S: list<idOffre,Offre>
-        S-[#0000FF]->I: list<idOffre,Offre>
+        O-[#0000FF]->S: List<idOffre,Offre>
+        S-[#0000FF]->I: List<idOffre,Offre>
 
         U->I: Consulter détaille d'une offre
         I-[#red]>S: SM 3.8 consulterDetailOffre(idOffre)
-        S -[#red]> O : SOM 3.8 getDetailleOffre(idOffre)
-        O -[#0000FF]-> S : idOffre,Offre,liste<idProduit,Produit>
+        S -[#red]> O : SOM 3.8 getDetailOffre(idOffre)
+        O -[#0000FF]-> S : idOffre,Offre,list<idProduit,Produit>
         S-[#0000FF]->I: idOffre,Offre,list<idProduit,Produit>
 
         U->I: Proposer un produit d'offre & Ajouter une annotation
