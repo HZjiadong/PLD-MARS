@@ -5,7 +5,7 @@ boundary IHM as I
 participant System as S
 participant Client as C
 participant Personne as P
-participant Contact as Con
+participant Structure as Str
 
 '在personne和Contact之间添加一个association 来储存最后一个modifier/ajouter 的Contact的Id
 autonumber
@@ -33,8 +33,8 @@ alt
     U->I: Chercher Personne Par Nom/Prenom
         I-[#red]>S: SM: chercherPersonne(nom, prenom)
             S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
-            P-[#0000FF]->S: list<idPersonne,Personne>
-        S-[#0000FF]->I: list<idPersonne, Personne>
+            P-[#0000FF]->S: list<idPersonne,Personne, Adress>
+        S-[#0000FF]->I: list<idPersonne, Personne, Adress>
     alt  0 résulat cherché
     U->I: Créer une nouvelle personne
         I-[#red]>S: SM: créerNouvellePersonne(Personne, adress)
@@ -64,12 +64,12 @@ else
         I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
             S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
             P-[#0000FF]->S: <Personne,idAgent,idAdress,Adress>
-            S-[#red]>Con: SOM: getAgentParidAgent(idAgent)
-            Con-[#0000FF]->S: Agent
+            S-[#red]>Str: SOM: getAgentParidAgent(idAgent)
+            Str-[#0000FF]->S: Agent
         S-[#0000FF]->I: <Personne, Adress, Agent>
     U->I: Modifier Donnees Personne
-        I-[#red]>S: SM: modifierPersonne(Adress, Personne, idAgent)
-            S-[#red]>P: SOM: modifierPersonne(Adress, Personne, idAgent)
+        I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
+            S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             P-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
 end
