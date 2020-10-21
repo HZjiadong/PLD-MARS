@@ -4,34 +4,40 @@ boundary IHM as I
 participant System as S
 participant Client as C
 participant Personne as P
-participant Contact as Con
+
 autonumber
 
 U->I: Rechercher un Client
 
 U->I: Rechercher un Client par ID
     I-[#red]>S: SM: RechercherClientID (idClient)
-        loop for each idClient
         S-[#red]>C: SOM: getClientParID(idClient)
-        C-[#0000FF]->S: idClient, Client
-        end
-    S-[#0000FF]->I: idClient,Client
+        C-[#0000FF]->S: liste<Client, liste<id Personne>>
+
+        S-[#red]>P: SOM: getListePersonne(idPersonne)
+        P-[#0000FF]->S: liste<Personne>
+    S-[#0000FF]->I: S: liste<Client, liste<id Personne>>
 
 U->I: Rechercher un Client par Denomination
-    I-[#red]>S: SM: RechercherClientDenomination (Denomination)
-        loop for each Denomination Client
-        S-[#red]>C: SOM: getClientParDenomination(Denomination)
-        C-[#0000FF]->S: idClient, Client
-        end
-    S-[#0000FF]->I: idClient,Client
+    I-[#red]>S: SM: RechercherClientParDenomination (Denomination)
+         S-[#red]>C: SOM: getClientParDenomination(Denomination)
+         C-[#0000FF]->S: liste<Client, liste<id Personne>>
 
-U->I: Rechercher un Client par Nom Prenom
-    I-[#red]>S: SM: RechercherClientNomPrenom (Nom, Prenom)
-        loop for each Nom Prenom Client
-        S-[#red]>C: SOM: getClientParNomPrenom(Nom, Prenom)
-        C-[#0000FF]->S: idClient, Client
-        end
-    S-[#0000FF]->I: idClient,Client
+         S-[#red]>P: SOM: getListePersonne(idPersonne)
+         P-[#0000FF]->S: liste<Personne>
+    S-[#0000FF]->I: S: liste<Client, liste<id Personne>>
+
+U->I: Rechercher un Client par Nom
+    I-[#red]>S: SM: RechercherClientParNom (Nom)
+         S-[#red]>P: SOM: getPersonneParNom(Nom)
+         P-[#0000FF]->S: liste<id Personne>
+
+         S-[#red]>C: SOM: getClientParIdPersonne(liste<Personne>)
+         C-[#0000FF]->S: liste<Client, Liste<id Personne>>
+
+         S-[#red]>P: SOM: getPersonne(Liste<id Personne>)
+         P-[#0000FF]->S: liste<Personne>
+    S-[#0000FF]->I: S: liste<Client, liste<id Personne, Personne>>
 
 U->I: Selection un Client
 
