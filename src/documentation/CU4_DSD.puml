@@ -25,6 +25,7 @@ alt
     end
     Système -[#0000FF]-> IHM : idSouscription, List<idOption, Option>
     alt
+    Agent -> IHM : Consulter les détails d'une option
     Agent -> IHM : Souscrire une option
     IHM -[#red]> Système : SM 4.3 souscrireOption(idSouscription, idOption)
     Système -> Client : SOM ajouterOption(idSouscription, idOption)
