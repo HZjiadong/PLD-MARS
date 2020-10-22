@@ -10,36 +10,39 @@ autonumber
 U->I: Rechercher un Client
 
 U->I: Rechercher un Client par ID
-    I-[#red]>S: SM: RechercherClientID (idClient)
-        S-[#red]>C: SOM: getClientParID(idClient)
+    I-[#red]>S: SM 1.1: RechercherClientID (idClient)
+        S-[#red]>C: SOM 1.1.1: getClientParID(idClient)
         C-[#0000FF]->S: liste<Client, liste<id Personne>>
 
-        S-[#red]>P: SOM: getListePersonne(idPersonne)
+        S-[#red]>P: SOM 1.1.2: getListePersonne(idPersonne)
         P-[#0000FF]->S: liste<Personne>
     S-[#0000FF]->I: S: liste<Client, liste<id Personne>>
 
 U->I: Rechercher un Client par Denomination
-    I-[#red]>S: SM: RechercherClientParDenomination (Denomination)
-         S-[#red]>C: SOM: getClientParDenomination(Denomination)
-         C-[#0000FF]->S: liste<Client, liste<id Personne>>
-
-         S-[#red]>P: SOM: getListePersonne(idPersonne)
-         P-[#0000FF]->S: liste<Personne>
-    S-[#0000FF]->I: S: liste<Client, liste<id Personne>>
+    I-[#red]>S: SM 1.2: RechercherClientParDenomination (Denomination)
+        S-[#red]>C: SOM 1.2.1: getClientParDenomination(Denomination)
+        C-[#0000FF]->S: liste<Client, liste<id Personne>>
+        loop for each Id Client
+        S-[#red]>P: SOM 1.2.2: getListePersonne(idPersonne)
+        P-[#0000FF]->S: liste<Personne>
+        end
+    S-[#0000FF]->I: S: liste<id Client, Client, liste<id Personne>>
 
 U->I: Rechercher un Client par Nom
-    I-[#red]>S: SM: RechercherClientParNom (Nom)
-         S-[#red]>P: SOM: getPersonneParNom(Nom)
-         P-[#0000FF]->S: liste<id Personne>
+    I-[#red]>S: SM 1.3: RechercherClientParNom (Nom)
+        S-[#red]>P: SOM 1.3.1: getPersonneParNom(Nom)
+        P-[#0000FF]->S: liste<id Personne>
 
-         S-[#red]>C: SOM: getClientParIdPersonne(liste<Personne>)
-         C-[#0000FF]->S: liste<Client, Liste<id Personne>>
-
-         S-[#red]>P: SOM: getPersonne(Liste<id Personne>)
-         P-[#0000FF]->S: liste<Personne>
-    S-[#0000FF]->I: S: liste<Client, liste<id Personne, Personne>>
+        S-[#red]>C: SOM 1.3.2: getClientParIdPersonne(liste<id Personne>)
+        C-[#0000FF]->S: liste<Client, Liste<id Personne>>
+        loop for each Id Client
+        S-[#red]>P: SOM 1.3.3: getPersonne(Liste<id Personne>)
+        P-[#0000FF]->S: liste<id Personne, Personne>
+        end
+    S-[#0000FF]->I: S: liste<id Client, Client, liste<id Personne, Personne>>
 
 U->I: Selection un Client
+U->I: Consultation un Client
 
 U->I: CU2:Consulter la Liste Personne de Client
 U->I: CU3:Consulter la Liste de Contacts
