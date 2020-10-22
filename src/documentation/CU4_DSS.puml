@@ -18,12 +18,12 @@ alt consulter une souscription
         Agent -> IHM : Annuler la modification
         else
         Agent -> IHM : Valider la modification
-        IHM -[#red]> Système : SM 4.3 validerContratModification(idSouscription, idContrat, Contrat, idOption, idAgent)
+        IHM -[#red]> Système : SM 4.3 validerContratModification(idSouscription, idContrat, Contrat, List<idOption, boolean>, idAgent)
         Système -[#0000FF]-> IHM : CRE
         end
     else résilier une souscription
     Agent -> IHM : Résilier la souscription
-    IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription, idAgent, Agent)
+    IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription, idAgent)
     Système -[#0000FF]-> IHM : CRE
     end
 else créer une nouvelle souscription
@@ -36,7 +36,7 @@ else créer une nouvelle souscription
     Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
     Agent -> IHM : Créer une nouvelle souscription
-    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idContact, idContrat, Souscription, list<idOption>, idAgent)
+    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idContact, idContrat, Souscription, list<idOption, boolean>, idAgent)
     Système -[#0000FF]-> IHM : CRE
 end
 @enduml
