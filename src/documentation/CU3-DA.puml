@@ -1,7 +1,7 @@
 @startuml
 
-(*) --> "Consulter liste contacts de clients"
-
+(*) --> "CU1: Identifier client"
+"CU1: Identifier client" --> "Consulter liste contacts de clients"
 "Consulter liste contacts de clients" -->"Créer contact"
 
 
@@ -9,18 +9,19 @@
 
 "Consulter onglet liste entretien"-->"Selectionner entretien"
 
-"Selectionner entretien"-->"Consulter liste offres"
-"Consulter liste offres"-->"Consulter détaille d'une offre"
--->"Proposer un produit & Ajouter une annotation"
+"Selectionner entretien"-->"Consulter liste offres de la banque"
+-->"Consulter détaille d'une offre"
+-->"Proposer une offre"
 
 "Selectionner entretien"-->"Modifier entretien"
 
-"Selectionner entretien"-->"Consulter liste contrats"
+"Selectionner entretien"-->"Consulter liste contrats de la banque"
 -->"Consulter détaille d'un contrat"
--->"Proposer une option & Ajouter une annotation"
+-->"Proposer un contrat"
 
-"Proposer une option & Ajouter une annotation"-->"Changer état de l'entretient et le clore"
-"Proposer un produit & Ajouter une annotation"-->"Changer état de l'entretient et le clore"
+"Proposer un contrat"-->"Ajouter annotation"
+"Proposer une offre"-->"Ajouter annotation"
+-->"Clore l'entretien"
 
 "Consulter liste contacts de clients" -->"Consulter onglet liste contact spontané/commercial"
 -->"Selectionner un contact"

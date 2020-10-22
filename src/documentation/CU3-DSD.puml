@@ -50,7 +50,7 @@ else
         CON -[#0000FF]-> S : idContrat, Contrat, List<idOption, Option>
         S -[#0000FF]-> I: idContrat, Contrat, List<idOption, Option>
 
-        U->I: Proposer un option de contrat & Ajouter une annotation
+        U->I: Proposer un contrat
         I-[#red]>S: SM 3.6 proposerContrat(idContact,PropositionContrat,idContrat)
         S-[#red]>CON: SOM 3.6 formulerPropositionContrat(idContact,PropositionContrat,idContrat)
         CON-[#0000FF]->S: CRE
@@ -68,7 +68,7 @@ else
         O -[#0000FF]-> S : idOffre,Offre,list<idProduit,Produit>
         S-[#0000FF]->I: idOffre,Offre,list<idProduit,Produit>
 
-        U->I: Proposer un produit d'offre & Ajouter une annotation
+        U->I: Proposer une offre
         I-[#red]>S: SM 3.9 proposerOffre(idContact,PropositionOffre,idOffre)
         S-[#red]>O: SOM 3.9 formulerPropositionOffre(idContact,PropositionOffre,idOffre)
         O-[#0000FF]->S: CRE
@@ -87,8 +87,8 @@ else
     S-[#0000FF]->I: CRE
 
     U->I: Clore l'entretien
-    I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
-    S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
+    I-[#red]>S: SM 3.11 cloreContact(idContact,Etat)
+    S-[#red]>C: SOM 3.11 setEtat(idContact,Etat)
     C-[#0000FF]->S: CRE
     S-[#0000FF]->I: CRE
 end
