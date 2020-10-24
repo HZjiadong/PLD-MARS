@@ -25,6 +25,7 @@ alt consulter une souscription
     Agent -> IHM : Résilier la souscription
     IHM -[#red]> Système : SM 4.5 resilierSouscription(idSouscription, idAgent)
     Système -[#0000FF]-> IHM : CRE
+    IHM -> IHM : update liste de souscription
     end
 else créer une nouvelle souscription
     Agent -> IHM : Consulter la liste des contrats fournis par la banque
@@ -35,8 +36,14 @@ else créer une nouvelle souscription
     IHM -[#red]> Système : SM 4.7 consulterDetailContrat(idContrat)
     Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
-    Agent -> IHM : Créer une nouvelle souscription
-    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idContact, idContrat, Souscription, list<idOption, boolean>, idAgent)
-    Système -[#0000FF]-> IHM : CRE
+        alt valider la nouvelle souscription
+        Agent -> IHM : Créer une nouvelle souscription
+        IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idContact, idContrat, Souscription, list<idOption, boolean>, idAgent)
+        Système -[#0000FF]-> IHM : CRE
+        IHM -> IHM : update liste de souscription, revenir en consultation
+        else annuler cette création
+        Agent -> IHM : Annuler cette création de souscription
+        IHM -> IHM : revenir en consultation
+        end
 end
 @enduml

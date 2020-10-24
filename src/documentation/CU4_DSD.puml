@@ -79,12 +79,17 @@ else créer une nouvelle souscription
     Contrat -[#0000FF]-> Système : idContrat, Contrat, List<idOption, Option>
     Système -[#0000FF]-> IHM : idContrat, Contrat, List<idOption, Option>
 
-    Agent -> IHM : Créer une nouvelle souscription
-    IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idAgent, idContrat, Souscription, list<idOption, boolean>)
-    Système -> Client : SOM ajouterSouscription(idClient, idAgent, idContrat, Souscription, list<idOption, boolean>)
-    Client -[#0000FF]-> Système : CRE
-    Système -[#0000FF]-> IHM : CRE
-    IHM -> IHM : update liste de souscription
+        alt valider la nouvelle souscription
+        Agent -> IHM : Créer une nouvelle souscription
+        IHM -[#red]> Système : SM 4.8 creerSouscription(idClient, idAgent, idContrat, Souscription, list<idOption, boolean>)
+        Système -> Client : SOM ajouterSouscription(idClient, idAgent, idContrat, Souscription, list<idOption, boolean>)
+        Client -[#0000FF]-> Système : CRE
+        Système -[#0000FF]-> IHM : CRE
+        IHM -> IHM : update liste de souscription et revenir en consultation
+        else annuler cette création
+        Agent -> IHM : Annuler cette création de souscription
+        IHM -> IHM : revenir en consultation
+        end
 end
 
 
