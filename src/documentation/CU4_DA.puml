@@ -1,10 +1,15 @@
 @startuml
 (*)  --> "CU1 Sélectionner Client"
---> "Consulter la liste des contrats souscrits"
 
-"Consulter la liste des contrats souscrits"-->  "Consulter les infos détaillées\n d'une souscription"
-"Consulter la liste des contrats souscrits"--> "Consulter la liste des contrats \n fournis par la banque "
+if avoir au moins une souscription
+  -->[true] "Consulter la liste des contrats souscrits"
+else
+  -->[false] "Consulter la liste des contrats \n fournis par la banque "
+endif
 
+"Consulter la liste des contrats souscrits" --> "Consulter les infos détaillées\n d'une souscription"
+"Consulter la liste des contrats souscrits" -down-> "Consulter la liste des contrats \n fournis par la banque "
+"Consulter les infos détaillées\n d'une souscription" --> "Consulter la liste des contrats \n fournis par la banque "
 "Consulter les infos détaillées\n d'une souscription" -> "Consulter les détails d'une option"
 "Consulter les infos détaillées\n d'une souscription" --> "Modifier le contrat"
 "Modifier le contrat" -> "Consulter les détails d'une option"
