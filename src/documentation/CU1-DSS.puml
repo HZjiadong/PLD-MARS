@@ -5,24 +5,27 @@ participant System as S
 
 autonumber
 
-U->I: Rechercher un Client
-
-U->I: Rechercher un Client par ID
+alt
+    U->I: Rechercher un Client par ID
     I-[#red]>S: SM: RechercherClientID (idClient)
     S-[#0000FF]->I: idClient,Client
-
-U->I: Rechercher un Client par Denomination
+    else
+    U->I: Rechercher un Client par Denomination
     I-[#red]>S: SM: RechercherClientDenomination (Denomination)
-    S-[#0000FF]->I: idClient,Client
-
-U->I: Rechercher un Client par Nom Prenom
-    I-[#red]>S: SM: RechercherClientNomPrenom (Nom, Prenom)
-    S-[#0000FF]->I: idClient,Client
+    S-[#0000FF]->I: List<idClient,Client>
+    else
+    U->I: Rechercher un Client par Nom Personne
+    I-[#red]>S: SM: RechercherClientNomPersonne (Nom)
+    S-[#0000FF]->I: List<idClient,Client>
+end
 
 U->I: Selection un Client
-
+U->I: Vue 360 d'un Client
+I-[#red]>S: SM: VueClient (idClient)
+S-[#0000FF]->I: idClient,Client,List<idPersonne, Personne>, List<idcompt, compt>,\nList<idSouscription, Souscription>, List<idContact, Contact>
 U->I: CU2:Consulter la Liste Personne de Client
 U->I: CU3:Consulter la Liste de Contacts
-U->I: CU2:Consulter la Liste des Contrats Souscrits
+U->I: CU4:Consulter la Liste des Contrats Souscrits
+U->I: Consulter la liste des produits
 
 @enduml
