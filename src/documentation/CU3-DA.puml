@@ -14,14 +14,14 @@
 -->"Proposer une offre"
 
 "Selectionner entretien"-->"Modifier entretien"
+-->"Enregistrer l'entretien"
+
+"Selectionner entretien"-->"Ajouter annotation"
+-->"Enregistrer l'entretien"
 
 "Selectionner entretien"-->"Consulter liste contrats de la banque"
 -->"Consulter détaille d'un contrat"
 -->"Proposer un contrat"
-
-"Proposer un contrat"-->"Ajouter annotation"
-"Proposer une offre"-->"Ajouter annotation"
--->"Clore l'entretien"
 
 "Consulter liste contacts de clients" -->"Consulter onglet liste contact spontané/commercial"
 -->"Selectionner un contact"
