@@ -38,10 +38,9 @@ else
     alt
         U->I: Consulter liste contrats
         I--[#red]>S: SM 3.4 consulterListeContrat()
-        S-[#red]>CON: SOM 3.4 getListeContrat(idContrat)
-        CON-[#0000FF]->S: List<idContrat, Contrat>
-        S-[#0000FF]->I: List<idDomaine, Domaine, List<idContrat, Contrat>>
-
+        S-[#red]>CON: SOM 3.4 getListeContrat()
+        CON-[#0000FF]->S: List<idContrat, Contrat, List<idDomaine, Domaine>>
+        S-[#0000FF]->I: List<idContrat, Contrat, List<idDomaine, Domaine>>
 
 
         U->I: Consulter détail d'un contrat
@@ -79,18 +78,25 @@ else
         S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
         C-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
-    end
-    U->I: Ajouter annotation
-    I-[#red]>S: SM 3.10 ajouterAnnotation(idContact,Annotation)
-    S-[#red]>C: SOM 3.10: ajouterAnnotation(idContact, Annotation)
-    C-[#0000FF]->S:CRE
-    S-[#0000FF]->I: CRE
 
-    U->I: Clore l'entretien
-    I-[#red]>S: SM 3.11 cloreContact(idContact,Etat)
-    S-[#red]>C: SOM 3.11 setEtat(idContact,Etat)
-    C-[#0000FF]->S: CRE
-    S-[#0000FF]->I: CRE
+        U->I: Enregistrer l'entretien
+        I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
+        S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
+        C-[#0000FF]->S: CRE
+        S-[#0000FF]->I: CRE
+    else
+        U->I: Ajouter annotation
+        I-[#red]>S: SM 3.10 ajouterAnnotation(idContact,Annotation)
+        S-[#red]>C: SOM 3.10: ajouterAnnotation(idContact, Annotation)
+        C-[#0000FF]->S:CRE
+        S-[#0000FF]->I: CRE
+
+        U->I: Enregistrer l'entretien
+        I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
+        S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
+        C-[#0000FF]->S: CRE
+        S-[#0000FF]->I: CRE
+    end
 end
 
 @enduml
