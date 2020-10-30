@@ -1,8 +1,7 @@
 @startuml
-(*)  --> "Rechercher un Client"
-"Rechercher un Client" --> "Rechercher un\n Client par ID"
-"Rechercher un Client" --> "Rechercher un Client\n par dénomination"
-"Rechercher un Client" --> "Rechercher un Client\n par nom du Personne"
+(*) --> "Rechercher un\n Client par ID"
+(*)  --> "Rechercher un Client\n par dénomination"
+(*)  --> "Rechercher un Client\n par nom du Personne"
 
 "Rechercher un\n Client par ID" --> "Selectionner Client"
 "Rechercher un Client\n par dénomination" --> "Selectionner Client"

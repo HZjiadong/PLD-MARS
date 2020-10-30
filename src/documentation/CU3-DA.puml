@@ -1,7 +1,7 @@
 @startuml
 
-(*) --> "CU1: Identifier client"
-"CU1: Identifier client" --> "Consulter liste contacts de clients"
+(*) --> "CU1: Sélectionner client"
+"CU1: Sélectionner client" --> "Consulter liste contacts de clients"
 "Consulter liste contacts de clients" -->"Créer contact"
 
 
