@@ -2,51 +2,50 @@
 actor Utilisateur as U
 boundary IHM as I
 participant System as S
-participant Client as C
-participant Personne as P
+participant Client
+participant Personne
+participant Contact
 
 autonumber
 
-U->I: Rechercher un Client
-
-U->I: Rechercher un Client par ID
-    I-[#red]>S: SM 1.1: RechercherClientID (idClient)
-        S-[#red]>C: SOM 1.1.1: getClientParID(idClient)
-        C-[#0000FF]->S: liste<Client, liste<id Personne>>
-
-        S-[#red]>P: SOM 1.1.2: getListePersonne(idPersonne)
-        P-[#0000FF]->S: liste<Personne>
-    S-[#0000FF]->I: S: liste<Client, liste<id Personne>>
-
-U->I: Rechercher un Client par Denomination
-    I-[#red]>S: SM 1.2: RechercherClientParDenomination (Denomination)
-        S-[#red]>C: SOM 1.2.1: getClientParDenomination(Denomination)
-        C-[#0000FF]->S: liste<Client, liste<id Personne>>
-        loop for each Id Client
-        S-[#red]>P: SOM 1.2.2: getListePersonne(idPersonne)
-        P-[#0000FF]->S: liste<Personne>
-        end
-    S-[#0000FF]->I: S: liste<id Client, Client, liste<id Personne>>
-
-U->I: Rechercher un Client par Nom
-    I-[#red]>S: SM 1.3: RechercherClientParNom (Nom)
-        S-[#red]>P: SOM 1.3.1: getPersonneParNom(Nom)
-        P-[#0000FF]->S: liste<id Personne>
-
-        S-[#red]>C: SOM 1.3.2: getClientParIdPersonne(liste<id Personne>)
-        C-[#0000FF]->S: liste<Client, Liste<id Personne>>
-        loop for each Id Client
-        S-[#red]>P: SOM 1.3.3: getPersonne(Liste<id Personne>)
-        P-[#0000FF]->S: liste<id Personne, Personne>
-        end
-    S-[#0000FF]->I: S: liste<id Client, Client, liste<id Personne, Personne>>
+alt
+    U->I: Rechercher un Client par ID
+    I-[#red]>S: SM: RechercherClientID (idClient)
+    S->Client : SOM getClientParId(idClient)
+    Client-[#0000FF]->S: idClient,Client
+    S-[#0000FF]->I: idClient,Client
+    else
+    U->I: Rechercher un Client par Denomination
+    I-[#red]>S: SM: RechercherClientDenomination (Denomination)
+    S->Client : SOM getClientParDenomination(Denomination)
+    Client-[#0000FF]->S: List<idClient,Client>
+    S-[#0000FF]->I: List<idClient,Client>
+    else
+    U->I: Rechercher un Client par Nom Personne
+    I-[#red]>S: SM: RechercherClientNomPersonne (Nom)
+    S->Personne : SOM getPersonneId(Nom)
+    Personne-[#0000FF]->S: idPersonne
+    S->Client : SOM getClientParPersonneId(idPersonne)
+    Client-[#0000FF]->S: List<idClient,Client>
+    S-[#0000FF]->I: List<idClient,Client>
+end
 
 U->I: Selection un Client
-U->I: Consultation un Client
+U->I: Vue 360 d'un Client
+I-[#red]>S: SM: VueClient (idClient)
+S->Client: SOM getClient(idClient)
+Client-[#0000FF]->S: idClient, Client, List<idPersonne>, List<idcompt, compt>,\nList<idSouscription, Souscription>
+loop pour chaque idPersonne
+    S->Personne: SOM getPersonne(idPersonne)
+    Personne-[#0000FF]->S: idPersonne, Personne
+end
+S->Contact: SOM getContact(idClient)
+Contact-[#0000FF]->S: List<idContact, Contact>
 
+S-[#0000FF]->I: idClient,Client,List<idPersonne, Personne>, List<idcompt, compt>,\nList<idSouscription, Souscription>, List<idContact, Contact>
 U->I: CU2:Consulter la Liste Personne de Client
 U->I: CU3:Consulter la Liste de Contacts
 U->I: CU4:Consulter la Liste des Contrats Souscrits
-
+U->I: Consulter la liste des produits
 
 @enduml
