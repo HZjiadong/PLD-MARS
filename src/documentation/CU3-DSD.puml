@@ -36,7 +36,7 @@ else
     U->I: Consulter onglet entretien
     U->I: Selectionner un entretien
     alt
-        U->I: Consulter liste contrats
+        U->I: Consulter liste contrats de la banque
         I--[#red]>S: SM 3.4 consulterListeContrat()
         S-[#red]>CON: SOM 3.4 getListeContrat()
         CON-[#0000FF]->S: List<idContrat, Contrat, List<idDomaine, Domaine>>
@@ -55,7 +55,7 @@ else
         CON-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
     else
-        U->I: Consulter liste offres
+        U->I: Consulter liste offres de la banque
         I-[#red]>S: SM 3.7 consulterListeOffres()
         S-[#red]>O: SOM 3.7 getListeOffre()
         O-[#0000FF]->S: List<idOffre,Offre>
@@ -74,18 +74,15 @@ else
         S-[#0000FF]->I: CRE
     else
         U->I: Modifier entretien
-        I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
-        S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
-        C-[#0000FF]->S: CRE
-        S-[#0000FF]->I: CRE
-
         U->I: Enregistrer l'entretien
         I-[#red]>S: SM 3.3 modifierContact(idContact,Contact)
         S-[#red]>C: SOM 3.3 modifierContact(idContact,Contact)
         C-[#0000FF]->S: CRE
         S-[#0000FF]->I: CRE
+
     else
         U->I: Ajouter annotation
+        U->I: Enregistrer annotation
         I-[#red]>S: SM 3.10 ajouterAnnotation(idContact,Annotation)
         S-[#red]>C: SOM 3.10: ajouterAnnotation(idContact, Annotation)
         C-[#0000FF]->S:CRE
