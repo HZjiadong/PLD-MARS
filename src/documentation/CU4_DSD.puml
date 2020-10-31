@@ -42,6 +42,7 @@ alt consulter une souscription
     Agent -> IHM : Consulter les détails d'une option
     alt
         Agent -> IHM : Annuler la modification
+        IHM -> IHM : revenir en consultation
         else
         Agent -> IHM : Valider la modification
         IHM -[#red]> Système : SM 4.3 validerContratModification(idSouscription, idContrat, Contrat, List<idOption, boolean>, idAgent)
@@ -55,6 +56,7 @@ alt consulter une souscription
         Système -> Client : SOM updateListeOption(idSouscription, List<idOption, boolean>)
         Client -[#0000FF]-> Système : CRE
         Système -[#0000FF]-> IHM : CRE
+        IHM -> IHM : revenir en consultation (SM 4.1)
     end
     else résilier une souscription
     Agent -> IHM : Résilier la souscription
@@ -64,7 +66,7 @@ alt consulter une souscription
     Système -> Client : SOM enleverSouscription(idSouscription, idAgent)
     Client -[#0000FF]-> Système : CRE
     Système -[#0000FF]-> IHM : CRE
-    IHM -> IHM : update liste de souscription
+    IHM -> IHM : revenir en consultation (et update liste de souscription) (SM 4.1)
     end
 else créer une nouvelle souscription
     Agent -> IHM : Consulter la liste des contrats fournis par la banque
@@ -85,10 +87,10 @@ else créer une nouvelle souscription
         Système -> Client : SOM ajouterSouscription(idClient, idAgent, idContrat, Souscription, list<idOption, boolean>)
         Client -[#0000FF]-> Système : CRE
         Système -[#0000FF]-> IHM : CRE
-        IHM -> IHM : update liste de souscription et revenir en consultation
+        IHM -> IHM : revenir en consultation (et update liste de souscription) (SM 4.1)
         else annuler cette création
         Agent -> IHM : Annuler cette création de souscription
-        IHM -> IHM : revenir en consultation
+        IHM -> IHM : revenir en consultation (SM 4.1)
         end
 end
 

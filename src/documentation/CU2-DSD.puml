@@ -25,16 +25,16 @@ U->I: Consulter Liste Personne de Client
     S-[#0000FF]->I: list<idPersonne, Personne>
 
 
-U->I: Modifier Liste Personne de Client
-U->I: Consulter Liste Personne de Client
+'U->I: Modifier Liste Personne de Client
+'U->I: Consulter Liste Personne de Client
 alt
     U->I: Ajouter une Personne dans ce Liste Client
 
-    U->I: Chercher Personne Par Nom/Prenom
-        I-[#red]>S: SM: chercherPersonne(nom, prenom)
-            S-[#red]>P: SOM: getPersonnesParNomPrenomPersonne(Nom,Prenom)
-            P-[#0000FF]->S: list<idPersonne,Personne, Adress>
-        S-[#0000FF]->I: list<idPersonne, Personne, Adress>
+    U->I: Chercher Personne Par Nom
+        I-[#red]>S: SM: chercherPersonne(nom)
+            S-[#red]>P: SOM: getPersonnesParNomPersonne(Nom)
+            P-[#0000FF]->S: list<idPersonne,Personne,idAdress,Adress>
+        S-[#0000FF]->I: list<idPersonne,Personne,idAdress,Adress>
     alt  0 résulat cherché
     U->I: Créer une nouvelle personne
         I-[#red]>S: SM: créerNouvellePersonne(Personne, adress)
@@ -43,7 +43,6 @@ alt
         S-[#0000FF]->I: idPersonne
     else
     U->I: Choisir une Personne
-
     U->I: Ajouter Personne dans la Liste de Client
         I-[#red]>S: SM: ajouterPersonne(idPersonne, idClient, idAgent)
             S-[#red]>C: SOM: ajouterPersonneDansleClient(IdPersonne, idClient)
@@ -54,6 +53,13 @@ alt
     end
 else
     U->I: Choisir une Personne
+    I-[#red]>S: SM: Consulter Personne(idPersonne)
+        S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
+        P-[#0000FF]->S: <idPersonne,Personne,idAgent,idAdress,Adress>
+        S-[#red]>Str: SOM: getAgentParidAgent(idAgent)
+        Str-[#0000FF]->S: idAgent,Agent
+    S-[#0000FF]->I: <idPersonne,Personne,idAdress,Adress,idAgent,Agent>
+
     U->I: Retirer Personne dans la Liste de Client
         I-[#red]>S: SM: retirerPersonne(idPersonne, idClient)
             S->C: SOM: retirerPersonneduClient(idPersonne, idClient)
@@ -61,16 +67,18 @@ else
         S-[#0000FF]->I: CRE
 else
     U->I: Consulter Personne
-        I-[#red]>S: SM: Consulter Personne(id Personne,id Client)
+        I-[#red]>S: SM: Consulter Personne(idPersonne)
             S-[#red]>P: SOM: getPersonnesParidPersonne(idPersonne)
-            P-[#0000FF]->S: <Personne,idAgent,idAdress,Adress>
+            P-[#0000FF]->S: <idPersonne,Personne,idAgent,idAdress,Adress>
             S-[#red]>Str: SOM: getAgentParidAgent(idAgent)
-            Str-[#0000FF]->S: Agent
-        S-[#0000FF]->I: <Personne, Adress, Agent>
+            Str-[#0000FF]->S: idAgent,Agent
+        S-[#0000FF]->I: <idPersonne,Personne,idAdress,Adress,idAgent,Agent>
     U->I: Modifier Donnees Personne
         I-[#red]>S: SM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             S-[#red]>P: SOM: modifierPersonne(Adress, idPersonne, Personne, idAgent)
             P-[#0000FF]->S: CRE
+            S-[#red]>Str: getAgentParidAgent(idAgent)
+            Str-[#0000FF]->S: idAgent,Agent
         S-[#0000FF]->I: CRE
 end
 @enduml
