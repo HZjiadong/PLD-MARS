@@ -7,21 +7,21 @@ autonumber
 
 alt
     U->I: Rechercher un Client par ID
-    I-[#red]>S: SM: RechercherClientID (idClient)
+    I-[#red]>S: SM 1.1: RechercherClientID (idClient)
     S-[#0000FF]->I: idClient,Client
     else
     U->I: Rechercher un Client par Denomination
-    I-[#red]>S: SM: RechercherClientDenomination (Denomination)
+    I-[#red]>S: SM 1.2: RechercherClientDenomination (Denomination)
     S-[#0000FF]->I: List<idClient,Client>
     else
     U->I: Rechercher un Client par Nom Personne
-    I-[#red]>S: SM: RechercherClientNomPersonne (Nom)
+    I-[#red]>S: SM 1.3: RechercherClientNomPersonne (Nom)
     S-[#0000FF]->I: List<idClient,Client>
 end
 
 U->I: Selection un Client
 U->I: Vue 360 d'un Client
-I-[#red]>S: SM: VueClient (idClient)
+I-[#red]>S: SM 1.4: VueClient (idClient)
 S-[#0000FF]->I: idClient,Client,List<idPersonne, Personne>, List<idcompt, compt>,\nList<idSouscription, Souscription>, List<idContact, Contact>
 U->I: CU2:Consulter la Liste Personne de Client
 U->I: CU3:Consulter la Liste de Contacts
